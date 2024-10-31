@@ -1,63 +1,23 @@
 #
-# Copyright (C) 2024 The LineageOS Project
+# Copyright (C) 2020 The Android Open Source Project
 #
-# SPDX-License-Identifier: Apache-2.0
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 #
 
-# Enable updating of APEXes
-$(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
-
-# API levels
-PRODUCT_SHIPPING_API_LEVEL := 30
+# Dynamic partitions
+PRODUCT_USE_DYNAMIC_PARTITIONS := true
 
 # fastbootd
 PRODUCT_PACKAGES += \
-    android.hardware.fastboot@1.1-impl-mock \
+    android.hardware.fastboot@1.0-impl-mock \
     fastbootd
-
-# Health
-PRODUCT_PACKAGES += \
-    android.hardware.health@2.1-impl \
-    android.hardware.health@2.1-impl.recovery \
-    android.hardware.health@2.1-service
-
-# Overlays
-PRODUCT_ENFORCE_RRO_TARGETS := *
-
-# Partitions
-PRODUCT_USE_DYNAMIC_PARTITIONS := true
-
-# Product characteristics
-PRODUCT_CHARACTERISTICS := phone
-
-# Rootdir
-PRODUCT_PACKAGES += \
-    log_to_csv.sh \
-    loading.sh \
-    para.sh \
-    total.sh \
-    install-recovery.sh \
-
-PRODUCT_PACKAGES += \
-    fstab.cali \
-    init.a3core.rc \
-    init.cali.rc \
-    init.factorytest.rc \
-    init.m168.rc \
-    init.m168.usb.rc \
-    init.ram.rc \
-    init.storage.rc \
-    init.recovery.common.rc \
-    init.recovery.m168.rc \
-    init.recovery.samsung.rc \
-    ueventd.m168.rc \
-
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/rootdir/etc/fstab.cali:$(TARGET_COPY_OUT_RAMDISK)/fstab.cali
-
-# Soong namespaces
-PRODUCT_SOONG_NAMESPACES += \
-    $(LOCAL_PATH)
-
-# Inherit the proprietary files
-$(call inherit-product, vendor/samsung/a3core/a3core-vendor.mk)
